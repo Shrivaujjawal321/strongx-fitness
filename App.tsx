@@ -7,7 +7,6 @@ import ServicesCarousel from './components/ServicesCarousel';
 import Stats from './components/Stats';
 import Marquee from './components/Marquee';
 import TransformationSection from './components/TransformationSection';
-import AiPlanner from './components/AiPlanner';
 import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import Trainers from './components/Trainers';
@@ -42,7 +41,6 @@ const HomePage: React.FC = () => (
     <Trainers />
     <Testimonials />
     <Pricing />
-    <AiPlanner />
     <Facilities />
     <section className="bg-dark py-24 text-center container mx-auto px-4">
       <h2 className="font-orbitron text-4xl md:text-6xl font-black text-white uppercase mb-8 italic">Ready to transform?</h2>

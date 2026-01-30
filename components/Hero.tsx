@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Instagram, Facebook, Twitter, Play } from 'lucide-react';
-import { gemini } from '../services/gemini';
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [motivation, setMotivation] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   const slides = [
     {
@@ -26,19 +23,6 @@ const Hero: React.FC = () => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
-
-    const loadMotivation = async () => {
-      setIsLoading(true);
-      try {
-        const text = await gemini.getAiMotivation();
-        setMotivation(text);
-      } catch {
-        setMotivation("Push beyond your limits.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadMotivation();
 
     return () => clearInterval(timer);
   }, [slides.length]);
@@ -87,12 +71,7 @@ const Hero: React.FC = () => {
 
           {/* Subtitle */}
           <p className="font-inter text-neutral-light text-lg md:text-xl max-w-xl mb-10 leading-relaxed opacity-80">
-            {isLoading ? (
-              <span className="inline-block w-64 h-6 bg-neutral-border/20 rounded animate-pulse" />
-            ) : (
-              motivation
-            )}{' '}
-            With ten years of experience, our fitness solution continues to lead the industry with a luxurious, result-driven environment.
+            Push beyond your limits. With ten years of experience, our fitness solution continues to lead the industry with a luxurious, result-driven environment.
           </p>
 
           {/* CTA Buttons */}
