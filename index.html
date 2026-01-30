@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrongX - Premium Fitness | Transform Body and Mind</title>
+    <meta name="description" content="StrongX is a premium fitness center offering gym, yoga, kickfit, group-x, and swimming services. Transform your body and mind with our world-class facilities and expert trainers.">
+    <meta name="keywords" content="fitness, gym, yoga, kickfit, swimming, personal training, group classes">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="StrongX - Premium Fitness">
+    <meta property="og:description" content="Transform your body and mind at StrongX. Premium fitness experiences since 2014.">
+    <meta property="og:image" content="https://framerusercontent.com/images/CjTKhc1hqRGghfDwFauIOmxorlk.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#f0dd35',
+              'primary-hover': '#efd915',
+              'primary-dark': '#dec912',
+              'primary-darker': '#bfad0d',
+              'primary-darkest': '#363105',
+              dark: '#121212',
+              'dark-card': '#1a1a1a',
+              'dark-deeper': '#0d0d0d',
+              accent: '#dec912',
+              'neutral-light': '#efefef',
+              'neutral-mid': '#dcdcdc',
+              'neutral-gray': '#989898',
+              'neutral-dark': '#7c7c7c',
+              'neutral-border': '#656565'
+            },
+            fontFamily: {
+              orbitron: ['Orbitron', 'sans-serif'],
+              grotesk: ['Space Grotesk', 'sans-serif'],
+              jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+              inter: ['Inter', 'sans-serif']
+            },
+            animation: {
+              'marquee': 'marquee 25s linear infinite',
+              'marquee-reverse': 'marquee-reverse 25s linear infinite',
+              'fade-in': 'fade-in 0.6s ease-out forwards',
+              'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+              'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+              'float': 'float 3s ease-in-out infinite'
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' }
+              },
+              'marquee-reverse': {
+                '0%': { transform: 'translateX(-50%)' },
+                '100%': { transform: 'translateX(0%)' }
+              },
+              'fade-in': {
+                from: { opacity: '0', transform: 'translateY(20px)' },
+                to: { opacity: '1', transform: 'translateY(0)' }
+              },
+              'fade-in-up': {
+                from: { opacity: '0', transform: 'translateY(40px)' },
+                to: { opacity: '1', transform: 'translateY(0)' }
+              },
+              'pulse-glow': {
+                '0%, 100%': { boxShadow: '0 0 20px -5px #f0dd35' },
+                '50%': { boxShadow: '0 0 40px -5px #f0dd35' }
+              },
+              'float': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' }
+              }
+            },
+            boxShadow: {
+              'glow': '0 0 30px -10px #f0dd35',
+              'glow-lg': '0 0 50px -10px #f0dd35',
+              'card': '0 12px 24px 0 rgba(0, 0, 0, 0.4)'
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      /* Base Styles */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #656565;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #f0dd35;
+      }
+
+      /* Hide scrollbar for carousels */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Selection */
+      ::selection {
+        background: #f0dd35;
+        color: #121212;
+      }
+
+      /* Line clamp utilities */
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Focus styles for accessibility */
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid #f0dd35;
+        outline-offset: 2px;
+      }
+    </style>
+
+    <!-- ES Module Imports -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react": "https://esm.sh/react@^19.2.4"
+      }
+    }
+    </script>
+
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

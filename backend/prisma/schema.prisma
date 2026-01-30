@@ -1,0 +1,189 @@
+// Prisma Schema for StrongX Gym Management System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for admin/staff authentication
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  name      String
+  role      Role       @default(STAFF)
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  auditLogs AuditLog[]
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  STAFF
+}
+
+// Member model
+model Member {
+  id               String              @id @default(uuid())
+  memberId         String              @unique // Display ID like "SX-001"
+  firstName        String
+  lastName         String
+  email            String              @unique
+  phone            String
+  dateOfBirth      DateTime?
+  gender           Gender?
+  address          String?
+  emergencyContact String?
+  profileImage     String?
+  status           MemberStatus        @default(ACTIVE)
+  joinDate         DateTime            @default(now())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  memberships      MembershipHistory[]
+  payments         Payment[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MemberStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+  SUSPENDED
+}
+
+// Membership Plan
+model MembershipPlan {
+  id          String              @id @default(uuid())
+  name        String              @unique
+  description String?
+  price       Decimal             @db.Decimal(10, 2)
+  duration    Int // in days
+  features    String[]
+  isActive    Boolean             @default(true)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  memberships MembershipHistory[]
+}
+
+// Membership History (tracks member plan subscriptions)
+model MembershipHistory {
+  id        String             @id @default(uuid())
+  member    Member             @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  memberId  String
+  plan      MembershipPlan     @relation(fields: [planId], references: [id])
+  planId    String
+  startDate DateTime
+  endDate   DateTime
+  status    SubscriptionStatus @default(ACTIVE)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+// Payment
+model Payment {
+  id            String        @id @default(uuid())
+  paymentId     String        @unique // Display ID like "PAY-001"
+  member        Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  memberId      String
+  amount        Decimal       @db.Decimal(10, 2)
+  paymentMethod PaymentMethod
+  paymentDate   DateTime      @default(now())
+  status        PaymentStatus @default(COMPLETED)
+  description   String?
+  invoice       Invoice?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  BANK_TRANSFER
+  ONLINE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+// Invoice
+model Invoice {
+  id            String   @id @default(uuid())
+  invoiceNumber String   @unique // INV-001
+  payment       Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  paymentId     String   @unique
+  issuedDate    DateTime @default(now())
+  dueDate       DateTime?
+  pdfUrl        String?
+  createdAt     DateTime @default(now())
+}
+
+// Staff
+model Staff {
+  id           String   @id @default(uuid())
+  staffId      String   @unique // STF-001
+  firstName    String
+  lastName     String
+  email        String   @unique
+  phone        String
+  role         String // e.g., "Front Desk", "Manager"
+  salary       Decimal? @db.Decimal(10, 2)
+  joinDate     DateTime @default(now())
+  isActive     Boolean  @default(true)
+  profileImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Trainer
+model Trainer {
+  id             String   @id @default(uuid())
+  trainerId      String   @unique // TRN-001
+  firstName      String
+  lastName       String
+  email          String   @unique
+  phone          String
+  specialization String[]
+  certification  String[]
+  experience     Int // in years
+  salary         Decimal? @db.Decimal(10, 2)
+  joinDate       DateTime @default(now())
+  isActive       Boolean  @default(true)
+  profileImage   String?
+  bio            String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// Audit Log
+model AuditLog {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  action    String // CREATE, UPDATE, DELETE
+  entity    String // Member, Payment, etc.
+  entityId  String
+  changes   Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}

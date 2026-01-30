@@ -1,0 +1,7 @@
+{
+  "name": "StrongX Fitness",
+  "description": "A premium dark-themed fitness platform with AI-powered training insights, based on the StrongX design system.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
